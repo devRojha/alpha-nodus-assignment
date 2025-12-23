@@ -1,9 +1,10 @@
 import express from "express";
+import { adminAuthMiddleware } from "../middleware/adminAuthMiddleware.js";
 
 const router = express.Router();
 
 // Create a job
-router.post("/", (req, res) => {
+router.post("/", adminAuthMiddleware, (req, res) => {
   res.json({ message: "Job created" });
 });
 
