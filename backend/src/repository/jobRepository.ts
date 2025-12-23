@@ -1,9 +1,9 @@
 import { prisma } from "../lib/prisma.js";
-import type { Job } from "@prisma/client";
 import type { CreateJobDTO, JobApplicationDTO } from "../types/job.js";
 
 export const jobRepository = {
   createJob: async (adminId: string, data: CreateJobDTO) => {
+    console.log(adminId)
     return await prisma.job.create({
       data: {
         title: data.title,
@@ -20,7 +20,6 @@ export const jobRepository = {
       include: {
         admin: {
           select: {
-            id: true,
             email: true,
           },
         },
@@ -37,7 +36,6 @@ export const jobRepository = {
       include: {
         admin: {
           select: {
-            id: true,
             email: true,
           },
         },

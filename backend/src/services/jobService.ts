@@ -5,7 +5,7 @@ export const createJob = async (
   adminId: string,
   data: CreateJobDTO
 ) => {
-  return jobRepository.createJob(adminId, data);
+    return jobRepository.createJob(adminId, data);
 };
 
 export const getAllJobs = async () => {

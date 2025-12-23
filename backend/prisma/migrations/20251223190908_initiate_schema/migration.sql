@@ -27,6 +27,7 @@ CREATE TABLE "Application" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "resumeUrl" TEXT NOT NULL,
+    "coverLetterUrl" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "jobId" TEXT NOT NULL,
 

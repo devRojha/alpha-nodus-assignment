@@ -29,7 +29,9 @@ export const getAllJobs = async(_req : Request, res : Response) => {
 export const getJobById = async(req : Request, res : Response) => {
 
     try {
-        const { id } = req.params;
+        var { id } = req.params;
+        id = id.slice(1)
+
         const data = await jobService.getJobById(id);
         res.status(200).json(data);
     }
@@ -41,7 +43,9 @@ export const getJobById = async(req : Request, res : Response) => {
 // Submit application for a job
 export const submitJobApplication = async (req : Request, res : Response) => {
     try {
-        const { id } = req.params;
+        var { id } = req.params;
+        id = id.slice(1)
+        console.log(id);
         const data = await jobService.submitJobApplication(id, req.body)
         res.json({ message: `Application submitted for job ${id}` });
     }

@@ -5,20 +5,19 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
 }
 
 model Admin {
-  id        String   @id @default(uuid())
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
 
-  jobs Job[]
 }
 
 model Job {
@@ -28,9 +27,7 @@ model Job {
   location    String
   salary      Int?
   createdAt   DateTime @default(now())
-
   adminId String
-  admin   Admin  @relation(fields: [adminId], references: [id])
 
   applications Application[]
 }
