@@ -28,5 +28,33 @@ export const applicationRepository = {
                 status : status
             }
         })
+    },
+    getCountActiveApplicantion: async(jobId : string) => {
+        const data = prisma.application.count({
+            where : {jobId : jobId, status : "active"}
+        })
+        return data.length;
+    },
+    getcandidateApplicationWithLastTime : async (email : string, phone : string) => {
+        const result = await prisma.application.aggregate({
+            where: {
+                status: "active",
+                OR: [
+                    { phone: phone },
+                    { email: email },
+                ],
+            },
+            _count: {
+                _all: true,
+            },
+            _max: {
+                createdAt: true,
+            },
+        });
+
+        return {
+            count: result._count._all,
+            lastTime: result._max.createdAt,
+        };
     }
 }
