@@ -1,6 +1,7 @@
 import * as adminService from "../services/adminService.js"
 
 import type { Response, Request } from "express"
+import { getErrorResponse } from "../utils/errorMessage.js";
 
 
 export const adminSignin = async(req : Request, res : Response) => {
@@ -15,12 +16,6 @@ export const adminSignin = async(req : Request, res : Response) => {
 
     }
     catch (err: unknown) {
-        console.error("Error:", err);
-
-        if (err instanceof Error) {
-            return res.status(500).json({ error: err.message });
-        }
-
-        return res.status(500).json({ error: "Something went wrong" });
+        getErrorResponse(res, err);
     }
 }

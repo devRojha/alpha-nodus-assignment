@@ -1,5 +1,6 @@
 import type { Response, Request } from "express"
 import * as jobService from "../services/jobService.js"
+import { getErrorResponse } from "../utils/errorMessage.js";
 
 
 export const createJob = async(req : Request, res : Response) => {
@@ -9,13 +10,7 @@ export const createJob = async(req : Request, res : Response) => {
         res.status(200).json(data);
     } 
     catch (err: unknown) {
-        console.error("Error:", err);
-
-        if (err instanceof Error) {
-            return res.status(500).json({ error: err.message });
-        }
-
-        return res.status(500).json({ error: "Something went wrong" });
+        getErrorResponse(res, err);
     }
 };
 
@@ -26,13 +21,7 @@ export const getAllJobs = async(_req : Request, res : Response) => {
         res.status(200).json(data);
     } 
     catch (err: unknown) {
-        console.error("Error:", err);
-
-        if (err instanceof Error) {
-            return res.status(500).json({ error: err.message });
-        }
-
-        return res.status(500).json({ error: "Something went wrong" });
+        getErrorResponse(res, err);
     }
 }
 
@@ -45,13 +34,7 @@ export const getJobById = async(req : Request, res : Response) => {
         res.status(200).json(data);
     }
     catch (err: unknown) {
-        console.error("Error:", err);
-
-        if (err instanceof Error) {
-            return res.status(500).json({ error: err.message });
-        }
-
-        return res.status(500).json({ error: "Something went wrong" });
+        getErrorResponse(res, err);
     }
 };
 
@@ -63,12 +46,6 @@ export const submitJobApplication = async (req : Request, res : Response) => {
         res.json({ message: `Application submitted for job ${id}` });
     }
     catch (err: unknown) {
-        console.error("Error:", err);
-
-        if (err instanceof Error) {
-            return res.status(500).json({ error: err.message });
-        }
-
-        return res.status(500).json({ error: "Something went wrong" });
+        getErrorResponse(res, err);
     }
 };

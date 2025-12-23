@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 export const adminSignin = (data: { email: string; password: string }): AdminSigninResponse => {
   if (data.email === adminEmail && data.password === password) {
     const token = jwt.sign(
-      { role: "ADMIN" },
+      { adminId : data.email, role: "ADMIN" },
       JWT_SECRET,
       { expiresIn: "1d" }
     );
