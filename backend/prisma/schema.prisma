@@ -42,6 +42,7 @@ model Application {
   resumeUrl String
   coverLetterUrl String?
   createdAt DateTime @default(now())
+  status    String @default("active") // hired, active, rejected
 
   jobId String
   job   Job    @relation(fields: [jobId], references: [id])
