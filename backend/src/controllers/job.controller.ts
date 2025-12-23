@@ -1,10 +1,17 @@
 import type { Response, Request } from "express"
 import * as jobService from "../services/jobService.js"
 import { getErrorResponse } from "../utils/errorMessage.js";
+import { applicationSchema } from "../validators/applicationValidators.js"
+import { jobSchema } from "../validators/jobValidators.js"
 
 
 export const createJob = async(req : Request, res : Response) => {
     try {
+        const parseResult = jobSchema.safeParse(req.body);
+        if (!parseResult.success) {
+            return res.status(400).json({success : false, message : "input validation"});
+        }
+
         const adminEmail = req.admin?.adminEmail || "dev@gmail.com"
         const data = await jobService.createJob(adminEmail, req.body);
         if (data.success === true) {
@@ -59,6 +66,13 @@ export const getJobById = async(req : Request, res : Response) => {
 // Submit application for a job
 export const submitJobApplication = async (req : Request, res : Response) => {
     try {
+
+        const parseResult = applicationSchema.safeParse(req.body);
+        
+        if (!parseResult.success) {
+            return res.status(400).json({success : false, message : "input validation"});
+        }
+
         var { id } = req.params;
         id = id.slice(1)
 

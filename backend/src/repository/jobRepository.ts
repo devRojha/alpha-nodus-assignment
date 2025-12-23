@@ -2,56 +2,57 @@ import { prisma } from "../lib/prisma.js";
 import type { CreateJobDTO, JobApplicationDTO } from "../types/job.js";
 
 export const jobRepository = {
-  createJob: async (adminEmail: string, data: CreateJobDTO) => {
-    return await prisma.job.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        location: data.location,
-        salary: data.salary,
-        adminEmail : "dev@gmail.com",
-      },
-    });
-  },
-
-  findAllJobs: async () => {
-    return await prisma.job.findMany({
-      include: {
-        admin: {
-          select: {
-            email: true,
-          },
+    createJob: async (adminEmail: string, data: CreateJobDTO) => {
+        return await prisma.job.create({
+        data: {
+            title: data.title,
+            description: data.description,
+            location: data.location,
+            salary: data.salary,
+            adminEmail,
         },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-  },
+        });
+    },
 
-  findJobById: async (jobId: string) => {
-    return await prisma.job.findUnique({
-      where: { id: jobId },
-      include: {
-        admin: {
-          select: {
-            email: true,
-          },
+    findAllJobs: async () => {
+        return await prisma.job.findMany({
+        include: {
+            admin: {
+            select: {
+                email: true,
+            },
+            },
         },
-        applications: true,
-      },
-    });
-  },
+        orderBy: {
+            createdAt: "desc",
+        },
+        });
+    },
 
-  createApplication: async (jobId: string, data: JobApplicationDTO) => {
-    return await prisma.application.create({
-      data: {
-        name: data.name,
-        email: data.email,
-        resumeUrl: data.resumeUrl,
-        coverLetterUrl: data.coverLetterUrl,
-        jobId,
-      },
-    });
-  },
+    findJobById: async (jobId: string) => {
+        return await prisma.job.findUnique({
+        where: { id: jobId },
+        include: {
+            admin: {
+            select: {
+                email: true,
+            },
+            },
+            applications: true,
+        },
+        });
+    },
+
+    createApplication: async (jobId: string, data: JobApplicationDTO) => {
+        return await prisma.application.create({
+        data: {
+            name: data.name,
+            email: data.email,
+            phone : data.phone,
+            resumeUrl: data.resumeUrl,
+            coverLetterUrl: data.coverLetterUrl,
+            jobId,
+        },
+        });
+    },
 };

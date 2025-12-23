@@ -29,10 +29,20 @@ export const submitJobApplication = async (
     if (!job) {
         throw new Error("Job not found");
     }
+    // is allready applied
     const allreadyApplied = await applicationRepository.isAllreadyFilled(jobId, data.email)
     if (allreadyApplied === true) {
         return {success : false, message : "Allready applied for the job", jobId : jobId}
     }
+
+    // is have atleast active 10 application
+
+
+    // is candidate allready applied for the 5 jobs 
+
+    // no more the 5 candidate apply for the job
+    
+
     await jobRepository.createApplication(jobId, data);
     return { success: true, message : "Application submited", jobId : jobId };
 };
