@@ -14,10 +14,11 @@ datasource db {
 }
 
 model Admin {
-  email     String   @unique
+  email     String   @id
   password  String
   createdAt DateTime @default(now())
 
+  jobs Job[]
 }
 
 model Job {
@@ -27,8 +28,9 @@ model Job {
   location    String
   salary      Int?
   createdAt   DateTime @default(now())
-  adminId String
-
+  adminEmail     String
+  admin Admin @relation(fields: [adminEmail], references: [email])
+  
   applications Application[]
 }
 

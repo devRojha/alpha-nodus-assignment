@@ -1,4 +1,4 @@
 export interface JwtPayload {
-  adminId: string;
+  adminEmail: string;
   role: "ADMIN" | "USER";
 }

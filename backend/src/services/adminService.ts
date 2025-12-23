@@ -14,7 +14,7 @@ export const adminSignin = (data: { email: string; password: string }): AdminSig
     if (data.email === adminEmail && data.password == password) {
 
         const token = jwt.sign(
-        { adminId : data.email, role: "ADMIN" },
+        { adminEmail : data.email, role: "ADMIN" },
         JWT_SECRET,
         { expiresIn: "1d" }
         );

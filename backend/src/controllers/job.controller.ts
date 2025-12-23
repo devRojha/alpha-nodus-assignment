@@ -5,9 +5,14 @@ import { getErrorResponse } from "../utils/errorMessage.js";
 
 export const createJob = async(req : Request, res : Response) => {
     try {
-        const adminID = req.admin?.adminId || ""
-        const data = await jobService.createJob(adminID, req.body);
-        res.status(200).json(data);
+        const adminEmail = req.admin?.adminEmail || "dev@gmail.com"
+        const data = await jobService.createJob(adminEmail, req.body);
+        if (data.success === true) {
+            res.status(200).json( data );
+        }
+        else {
+            res.status(404).json( data );
+        }
     } 
     catch (err: unknown) {
         getErrorResponse(res, err);
@@ -18,7 +23,13 @@ export const createJob = async(req : Request, res : Response) => {
 export const getAllJobs = async(_req : Request, res : Response) => {
     try {
         const data = await jobService.getAllJobs();
-        res.status(200).json(data);
+
+        if (data.success === true) {
+            res.status(200).json( data );
+        }
+        else {
+            res.status(404).json(data);
+        }
     } 
     catch (err: unknown) {
         getErrorResponse(res, err);
@@ -33,7 +44,12 @@ export const getJobById = async(req : Request, res : Response) => {
         id = id.slice(1)
 
         const data = await jobService.getJobById(id);
-        res.status(200).json(data);
+        if (data.success === true) {
+            res.status(200).json(data);
+        }
+        else {
+            res.status(404).json(data);
+        }
     }
     catch (err: unknown) {
         getErrorResponse(res, err);
@@ -45,9 +61,14 @@ export const submitJobApplication = async (req : Request, res : Response) => {
     try {
         var { id } = req.params;
         id = id.slice(1)
-        console.log(id);
+
         const data = await jobService.submitJobApplication(id, req.body)
-        res.json({ message: `Application submitted for job ${id}` });
+        if (data.success === true) {
+            res.status(200).json(data);
+        }
+        else {
+            res.status(403).json(data);
+        }
     }
     catch (err: unknown) {
         getErrorResponse(res, err);

@@ -2,15 +2,14 @@ import { prisma } from "../lib/prisma.js";
 import type { CreateJobDTO, JobApplicationDTO } from "../types/job.js";
 
 export const jobRepository = {
-  createJob: async (adminId: string, data: CreateJobDTO) => {
-    console.log(adminId)
+  createJob: async (adminEmail: string, data: CreateJobDTO) => {
     return await prisma.job.create({
       data: {
         title: data.title,
         description: data.description,
         location: data.location,
         salary: data.salary,
-        adminId,
+        adminEmail : "dev@gmail.com",
       },
     });
   },
