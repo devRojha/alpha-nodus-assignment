@@ -1,28 +1,19 @@
 import express from "express";
 import { adminAuthMiddleware } from "../middleware/adminAuthMiddleware.js";
+import { createJob, getAllJobs, getJobById, submitJobApplication } from "../controllers/job.controller.js";
 
 const router = express.Router();
 
 // Create a job
-router.post("/", adminAuthMiddleware, (req, res) => {
-  res.json({ message: "Job created" });
-});
+router.post("/", adminAuthMiddleware, createJob);
 
 // Get all jobs
-router.get("/", (_req, res) => {
-  res.json({ message: "All jobs" });
-});
+router.get("/", getAllJobs);
 
-// Get job by ID (BEST PRACTICE)
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  res.json({ message: `Job ${id}` });
-});
+// Get job by ID 
+router.get("/:id", getJobById);
 
 // Submit application for a job
-router.post("/:id/submit", (req, res) => {
-  const { id } = req.params;
-  res.json({ message: `Application submitted for job ${id}` });
-});
+router.post("/:id/submit", submitJobApplication);
 
 export default router;

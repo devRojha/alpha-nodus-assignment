@@ -1,14 +1,10 @@
 import jwt from "jsonwebtoken";
+import type { AdminSigninResponse } from "../types/admin.js";
 
 const adminEmail = process.env.ADMIN_EMAIL;
 const password = process.env.ADMIN_PASSWORD;
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-interface AdminSigninResponse {
-  success: boolean;
-  message: string;
-  token?: string;
-}
 
 
 export const adminSignin = (data: { email: string; password: string }): AdminSigninResponse => {

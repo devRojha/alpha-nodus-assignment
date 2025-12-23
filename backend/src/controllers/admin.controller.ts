@@ -1,4 +1,3 @@
-import express from "express"
 import * as adminService from "../services/adminService.js"
 
 import type { Response, Request } from "express"
@@ -7,8 +6,13 @@ import type { Response, Request } from "express"
 export const adminSignin = async(req : Request, res : Response) => {
     try {
         const response = adminService.adminSignin(req.body);
+        if (response.success === false) {
+            res.status(401).json(response);
+        }
+        else {
+            res.status(200).json(response);
+        }
 
-        res.status(200).json({success : true, token : response.token});
     }
     catch (err: unknown) {
         console.error("Error:", err);
