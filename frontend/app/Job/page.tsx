@@ -50,6 +50,7 @@ export default function Job() {
       </div>
       <div className="mx-6 shadow-md rounded-md h-[78%] justify-center overflow-auto">
         {loading && <p className="text-center">Loading...</p>}
+        {(!loading && jobs.length === 0) && <p className="text-center">Nothing to show</p>}
 
         {jobs?.map((job) => {
             const date = job.createdAt.split('T')[0]; 

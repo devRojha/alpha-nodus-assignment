@@ -8,22 +8,19 @@ type Admin = {
   email: string;
 };
 
-type Application = {
-  id: string;
-  status: string;
-  createdAt: string;
-};
 
 type Job = {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  salary: number | null;
-  createdAt: string;
-  adminEmail: string;
-  admin: Admin;
-  applications: Application[];
+    id: string;
+    title: string;
+    description: string;
+    location: string;
+    salary: number | null;
+    createdAt: string;
+    adminEmail: string;
+    admin: Admin;
+    _count: {
+        applications: number
+    }
 };
 
 export default function Job() {
@@ -96,25 +93,8 @@ export default function Job() {
         {/* Applications */}
         <div>
           <h2 className="font-semibold my-2">
-            Applications ({job.applications.length})
+            Active Applications ({job._count.applications})
           </h2>
-
-          {job.applications.length === 0 ? (
-            <p className="text-slate-500">No applications yet</p>
-          ) : (
-            job.applications.map((app) => (
-              <div
-                key={app.id}
-                className="border p-3 rounded-md mb-2"
-              >
-                <p>Status: {app.status}</p>
-                <p>
-                  Applied on:{' '}
-                  {app.createdAt.split('T')[0]}
-                </p>
-              </div>
-            ))
-          )}
         </div>
       </div>
       <button onClick={()=> router.push(`/Application/${id}`)} className='border px-4 py-2 rounded-lg font-bold bg-blue-600 text-white hover:bg-blue-800 active:text-blue-700'>Apply</button>

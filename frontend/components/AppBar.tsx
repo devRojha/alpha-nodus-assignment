@@ -22,7 +22,7 @@ export default function Appbar() {
   return (
     <div className="text-zinc-900 bg-white z-30 fixed w-full shadow shadow-slate-600 top-0 h-16 px-4">
       <div className="flex justify-between items-center h-full">
-        <button onClick={()=> router.push("/")} className="font-medium">Alpha Nodus</button>
+        <button onClick={()=> router.push("/")} className="font-medium font-bold hover:text-blue-700">Alpha Nodus</button>
 
         <div className="flex gap-4">
           {!isLoggedIn && (
@@ -31,8 +31,8 @@ export default function Appbar() {
 
           {isLoggedIn && (
             <>
-            <button onClick={()=> router.push("/JobForm")} className="font-medium">ADD Job</button>
-            <button onClick={()=> router.push("/Application")} className="font-medium">See Application</button>
+            <button onClick={()=> router.push("/JobForm")} className="font-medium hover:text-blue-700">ADD Job</button>
+            <button onClick={()=> router.push("/Application")} className="font-medium hover:text-blue-700">See Application</button>
             </>
           )}
         </div>

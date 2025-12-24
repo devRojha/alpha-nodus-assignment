@@ -17,7 +17,7 @@ export const jobRepository = {
     findAllJobs: async (skip: number, limit: number) => {
         // We run both queries in parallel for better performance
         const [jobs, total] = await Promise.all([
-            await prisma.job.findMany({
+            prisma.job.findMany({
                 skip: skip,
                 take: limit,
                 include: {
@@ -31,7 +31,7 @@ export const jobRepository = {
                     createdAt: "desc",
                 },
             }),
-            await prisma.job.count() // Get total count for pagination math
+            prisma.job.count() 
         ]);
 
         return { jobs, total };
@@ -39,15 +39,21 @@ export const jobRepository = {
 
     findJobById: async (jobId: string) => {
         return await prisma.job.findUnique({
-        where: { id: jobId },
-        include: {
-            admin: {
-            select: {
-                email: true,
+            where: { id: jobId },
+            include: {
+                admin: {
+                    select: {
+                        email: true,
+                    },
+                },
+                _count: {
+                    select: {
+                        applications: {
+                            where: { status: "active" }
+                        }
+                    },
+                },
             },
-            },
-            applications: true,
-        },
         });
     },
 };

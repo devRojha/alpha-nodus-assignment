@@ -20,7 +20,7 @@ export default function Application() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState<boolean>(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchApplications = useCallback(async () => {
     try {
@@ -60,7 +60,9 @@ export default function Application() {
       </div>
       <div className="mx-6 shadow-md h-[78%] justify-center overflow-auto">
         {loading && <p className="text-center">Loading...</p>}
+        {(!loading && applications.length === 0) && <p className="text-center">Nothing to show</p>}
 
+        
         {applications.map((application) => {
 
           return (
