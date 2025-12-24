@@ -41,7 +41,7 @@ export default function Job() {
         setLoading(true);
 
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/job/:5150e1d3-a0ef-4c69-a0a1-a7f64239dcd3`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/job/:${id}`
         );
 
         if (res.data?.success) {

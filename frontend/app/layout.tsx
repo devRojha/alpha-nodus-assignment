@@ -4,8 +4,8 @@ import "./globals.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Online Judge",
-  description: "A platform where user can test there code and solve proble of dsa",
+  title: "Alpha Nodus",
+  description: "Career Portal",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
