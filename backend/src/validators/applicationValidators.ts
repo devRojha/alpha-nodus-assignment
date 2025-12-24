@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+
 export const applicationSchema = z.object({
   name: z
     .string()
@@ -12,9 +13,4 @@ export const applicationSchema = z.object({
     .string()
     .min(10, "Phone number too short")
     .max(15, "Phone number too long"),
-
-  resumeUrl: z
-    .string(),
-
-  coverLetterUrl: z.string().optional(),
 });

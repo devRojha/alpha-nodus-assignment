@@ -58,8 +58,8 @@ export default function ApplicationCard({
       </div>
 
       <div className="col-span-2 text-slate-500 flex flex-col">
-        <a className="italic hover:text-blue-700" href={resumeUrl}>See resume</a>
-        <a className="italic hover:text-blue-700" href={coverLetterUrl}>See cover letter</a>
+        <a className="italic hover:text-blue-700" target='blank' href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${resumeUrl}`}>See resume</a>
+        <a className={`${coverLetterUrl ? "" : "hidden"} italic hover:text-blue-700`} target='blank' href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${coverLetterUrl}`}>See cover letter</a>
       </div>
 
       <div className="col-span-2 space-x-10">

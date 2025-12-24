@@ -9,8 +9,8 @@ export interface JobApplicationDTO {
   name: string;
   email: string;
   phone: string;
-  resumeUrl: string;
-  coverLetterUrl? : string;
+  resumeUrl: File;
+  coverLetterUrl? : File;
 }
 
 export interface Job {

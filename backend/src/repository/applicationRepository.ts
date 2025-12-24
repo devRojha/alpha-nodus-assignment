@@ -1,20 +1,20 @@
 import { prisma } from "../lib/prisma.js";
-import type { JobApplicationDTO } from "../types/job.js";
 
 
 export const applicationRepository = {
-    createApplication: async (jobId: string, data: JobApplicationDTO) => {
-        return await prisma.application.create({
-        data: {
+    createApplication: async (jobId: string, data: any) => {
+        return prisma.application.create({
+            data: {
+            jobId,
             name: data.name,
             email: data.email,
-            phone : data.phone,
+            phone: data.phone,
             resumeUrl: data.resumeUrl,
             coverLetterUrl: data.coverLetterUrl,
-            jobId,
-        },
+            },
         });
     },
+
     isAllreadyFilled: async (jobId : string, userEmail : string) => {
         const response = await prisma.application.findMany({
             where : {jobId, email : userEmail}
@@ -28,12 +28,25 @@ export const applicationRepository = {
     },
     findAllApplication: async () => {
         return await prisma.application.findMany({
-        where : {status : "active"},
-        orderBy: {
-            createdAt: "desc",
-        },
+            where: { status: "active" },
+            orderBy: { createdAt: "desc" },
+            select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            resumeUrl: true,
+            createdAt: true,
+            status: true,
+            job: {
+                select: {
+                title: true,
+                },
+            },
+            },
         });
     },
+
     updateApplication: async (applicationId : string, status : string) => {
         return await prisma.application.update({
             where : {id : applicationId},

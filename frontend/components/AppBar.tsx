@@ -30,7 +30,10 @@ export default function Appbar() {
           )}
 
           {isLoggedIn && (
+            <>
+            <button onClick={()=> router.push("/Application")} className="font-medium">ADD Job</button>
             <button onClick={()=> router.push("/Application")} className="font-medium">See Application</button>
+            </>
           )}
         </div>
       </div>

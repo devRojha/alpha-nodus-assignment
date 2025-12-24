@@ -1,15 +1,15 @@
 'use client';
 
 import ApplicationCard from '@/components/ApplicationCard';
-import NoDataComponent from '@/components/NoDataComponent';
 import axios from 'axios';
-import { headers } from 'next/headers';
 import { useEffect, useState, useCallback } from 'react';
 
 type Application = {
   id: string;
   name: string;
-  jobTitle: string;
+  job : {
+    title : string;
+  };
   resumeUrl : string;
   coverLetterUrl? : string;
   status : string
@@ -65,7 +65,7 @@ export default function Application() {
               key={application.id}
               id={application.id}
               name={application.name}
-              jobTitle={application.jobTitle}
+              jobTitle={application.job.title}
               resumeUrl={application.resumeUrl}
               coverLetterUrl={application.coverLetterUrl}
               onUpdated={fetchApplications}   
