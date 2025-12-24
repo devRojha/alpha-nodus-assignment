@@ -15,9 +15,12 @@ export const applicationRepository = {
         });
     },
 
-    isAllreadyFilled: async (jobId : string, userEmail : string) => {
+    isAllreadyFilled: async (jobId : string, userEmail : string, userPhone : string) => {
         const response = await prisma.application.findMany({
-            where : {jobId, email : userEmail}
+            where : {jobId, OR: [
+                { email: userEmail },
+                { phone: userPhone }
+            ]}
         })
         if (response.length > 0) {
             return true;

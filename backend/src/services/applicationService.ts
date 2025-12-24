@@ -55,7 +55,7 @@ export const submitJobApplication = async (
     }
 
     // is allready applied
-    const allreadyApplied = await applicationRepository.isAllreadyFilled(jobId, data.email)
+    const allreadyApplied = await applicationRepository.isAllreadyFilled(jobId, data.email, data.phone)
     if (allreadyApplied === true) {
         return {success : false, message : "Already applied for the job", jobId : jobId}
     }
