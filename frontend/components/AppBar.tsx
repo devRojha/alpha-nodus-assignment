@@ -1,11 +1,13 @@
 'use client'
 
 import { loggedInState } from '@/state/atom';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 export default function Appbar() {
   const [isLoggedIn, setisLoggedIn] = useRecoilState(loggedInState)
+  const router = useRouter();
 
   useEffect (()=>{
     const token = localStorage.getItem("token");
@@ -18,18 +20,17 @@ export default function Appbar() {
   }, [isLoggedIn])
 
   return (
-    <div className="text-zinc-900 z-30 fixed w-full shadow shadow-slate-600 top-0 h-16 px-4">
+    <div className="text-zinc-900 bg-white z-30 fixed w-full shadow shadow-slate-600 top-0 h-16 px-4">
       <div className="flex justify-between items-center h-full">
-        <div>Alpha Nodus</div>
-        <div>Job Application</div>
+        <button onClick={()=> router.push("/")} className="font-medium">Alpha Nodus</button>
 
         <div className="flex gap-4">
           {!isLoggedIn && (
-            <button className="font-medium">Admin</button>
+            <button onClick={()=> router.push("/Signin")} className="font-medium">Admin</button>
           )}
 
           {isLoggedIn && (
-            <button className="font-medium">See Application</button>
+            <button onClick={()=> router.push("/Application")} className="font-medium">See Application</button>
           )}
         </div>
       </div>

@@ -1,11 +1,10 @@
+import Job from "./Job/page";
 
 
 
 export default function Home() {
   return (
-    <div className="">
-      hii there
-    </div> 
+    <Job />
   );
 }
 
