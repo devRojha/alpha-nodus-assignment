@@ -1,12 +1,28 @@
 import { applicationRepository } from "../repository/applicationRepository.js";
 import { jobRepository } from "../repository/jobRepository.js";
+import type { ApplicationQuery } from "../types/application_query.js";
 import type { JobApplicationDTO } from "../types/job.js";
 import { getHoursDiff } from "../utils/MathmaticCalculation.js";
 
 
-export const getAllApplication = async () => {
-    const response =  await applicationRepository.findAllApplication();
-    return {success : true, response : response, message : "all applications are listed"};
+export const getAllApplication = async (query : ApplicationQuery) => {
+    const limit = 10;
+    const page = Number(query.page) || 1;
+    const skip = (page - 1) * limit;
+
+    const { applications, total } = await applicationRepository.findAllApplication(skip, limit);
+
+    return {
+        success: true,
+        message: "All applications are listed",
+        data: {
+            applications,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit),
+            hasMore: page < Math.ceil(total / limit)
+        }
+    };
 };
 
 export const updateApplication = async(applicationId : string, status : string) => {

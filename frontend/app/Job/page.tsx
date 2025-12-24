@@ -1,6 +1,7 @@
 'use client';
 
 import JobCard from '@/components/JobCard';
+import PaginationButton from '@/components/PaginationButton';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -14,6 +15,7 @@ type Job = {
 export default function Job() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState<boolean>(false)
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -26,7 +28,8 @@ export default function Job() {
         );
 
         if (res.data?.success) {
-            setJobs(res.data.response);
+            setJobs(res.data.data.jobs);
+            setHasMore(res.data.data.hasMore);
         }
       } 
       catch (err) {
@@ -65,18 +68,7 @@ export default function Job() {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center gap-4 mt-4">
-        <button
-          disabled={page === 1}
-          onClick={() => setPage((p) => p - 1)}
-        >
-          Prev
-        </button>
-
-        <button onClick={() => setPage((p) => p + 1)}>
-          Next
-        </button>
-      </div>
+      <PaginationButton page={page} hasMore={hasMore} setPage={setPage}/>
     </div>
   );
 }

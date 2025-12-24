@@ -26,25 +26,32 @@ export const applicationRepository = {
             return false;
         }
     },
-    findAllApplication: async () => {
-        return await prisma.application.findMany({
-            where: { status: "active" },
-            orderBy: { createdAt: "desc" },
-            select: {
-            id: true,
-            name: true,
-            email: true,
-            phone: true,
-            resumeUrl: true,
-            createdAt: true,
-            status: true,
-            job: {
+    findAllApplication: async (skip: number, limit: number) => {
+        const [applications, total] = await Promise.all([
+            prisma.application.findMany({
+                where: { status: "active" },
+                skip: skip,
+                take: limit,
+                orderBy: { createdAt: "asc" },
                 select: {
-                title: true,
+                    id: true,
+                    name: true,
+                    email: true,
+                    phone: true,
+                    resumeUrl: true,
+                    createdAt: true,
+                    status: true,
+                    job: {
+                        select: {
+                            title: true,
+                        },
+                    },
                 },
-            },
-            },
-        });
+            }),
+            prisma.application.count({ where: { status: "active" } })
+        ]);
+
+        return { applications, total };
     },
 
     updateApplication: async (applicationId : string, status : string) => {

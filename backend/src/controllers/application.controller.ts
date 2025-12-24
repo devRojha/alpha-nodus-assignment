@@ -8,15 +8,15 @@ import { file } from "zod";
 
 
 
-export const getAllApplication = async(req : Request, res : Response) => {
+export const getAllApplication = async (req: Request, res: Response) => {
     try {
-        const data = await applicationService.getAllApplication();
 
-        if (data.success === true) {
-            res.status(200).json( data );
-        }
-        else {
-            res.status(404).json(data);
+        const result = await applicationService.getAllApplication(req.query);
+
+        if (result.success) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json(result);
         }
     } 
     catch (err: unknown) {

@@ -26,9 +26,9 @@ export const createJob = async(req : Request, res : Response) => {
 };
 
 // Get all jobs
-export const getAllJobs = async(_req : Request, res : Response) => {
+export const getAllJobs = async(req : Request, res : Response) => {
     try {
-        const data = await jobService.getAllJobs();
+        const data = await jobService.getAllJobs(req.query);
 
         if (data.success === true) {
             res.status(200).json( data );

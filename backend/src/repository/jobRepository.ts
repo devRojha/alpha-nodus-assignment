@@ -14,19 +14,27 @@ export const jobRepository = {
         });
     },
 
-    findAllJobs: async () => {
-        return await prisma.job.findMany({
-        include: {
-            admin: {
-            select: {
-                email: true,
-            },
-            },
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-        });
+    findAllJobs: async (skip: number, limit: number) => {
+        // We run both queries in parallel for better performance
+        const [jobs, total] = await Promise.all([
+            await prisma.job.findMany({
+                skip: skip,
+                take: limit,
+                include: {
+                    admin: {
+                        select: {
+                            email: true,
+                        },
+                    },
+                },
+                orderBy: {
+                    createdAt: "desc",
+                },
+            }),
+            await prisma.job.count() // Get total count for pagination math
+        ]);
+
+        return { jobs, total };
     },
 
     findJobById: async (jobId: string) => {
