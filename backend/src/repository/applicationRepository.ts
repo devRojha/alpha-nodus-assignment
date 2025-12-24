@@ -1,7 +1,20 @@
 import { prisma } from "../lib/prisma.js";
+import type { JobApplicationDTO } from "../types/job.js";
 
 
 export const applicationRepository = {
+    createApplication: async (jobId: string, data: JobApplicationDTO) => {
+        return await prisma.application.create({
+        data: {
+            name: data.name,
+            email: data.email,
+            phone : data.phone,
+            resumeUrl: data.resumeUrl,
+            coverLetterUrl: data.coverLetterUrl,
+            jobId,
+        },
+        });
+    },
     isAllreadyFilled: async (jobId : string, userEmail : string) => {
         const response = await prisma.application.findMany({
             where : {jobId, email : userEmail}
