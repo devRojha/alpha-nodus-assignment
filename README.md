@@ -1,10 +1,10 @@
-# Retail Sales Management System
+# Career Dashboard
 
 ### 1. Overview
 
 This project is a Job board Dashboard where an admin can add job post, see all applicent and hire or reject them and an applicent can see all job post and can apply based on below constrant.
 
-Constrant : 
+1.1 Constrant : 
 
 ● Each applicant can only apply once per job
 
@@ -15,6 +15,10 @@ Constrant :
 ● Candidates should not be allowed to apply for the job without contact information (email and phone number)
 
 ● Candidates should not be allowed to apply if a job posting has 10 active applications.
+
+1.2 Extra Edge Case : 
+
+● Add a status attribute to the application to track if the applicant is hired or rejected, ensuring that the data persists and the applicant cannot apply again.
 
 ##
 
